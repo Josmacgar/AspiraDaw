@@ -27,12 +27,16 @@ public class AspiraDaw {
         int dormitorio1;
         int dormitorio2;
         //Variable de carga
-        int carga;
+        int carga=0;
+        String repeticion;
+        
         // do while para que se repita en caso de que no sean las credenciales
-        do {
+       /* do {
             NombreUsuario = JOptionPane.showInputDialog(null, "Nombre de usuario");
             ContraseniaUsuario = JOptionPane.showInputDialog(null, "Contraseña");
-        } while (!NombreUsuario.equals(USUARIO) || !ContraseniaUsuario.equals(CONTRASEÑA));
+        } while (!NombreUsuario.equals(USUARIO) || !ContraseniaUsuario.equals(CONTRASEÑA));*/
+        do {
+       
         //creamos el menu y lo pasamos de String a int
         String entradaMenu;
         entradaMenu = JOptionPane.showInputDialog(null,"Menú:\n 1.Configurar el sistema\n "
@@ -98,15 +102,33 @@ public class AspiraDaw {
                 } while (carga<0 || carga>100);  
                 break;
             case 3:
+                String modoAspiracion;
+                 modoAspiracion = JOptionPane.showInputDialog(null,"Modo de aspiracion:\n"
+                         + "1.Modo completo\n 2.Modo dependencias");
+                    int modo = Integer.parseInt(modoAspiracion);
+                switch (modo){
+                    case 1:
+                        
+                    case 2:
+                }
                 break;
             case 4:
                 break;
             case 5:
+                 JOptionPane.showMessageDialog(null,carga);
                 break;
             case 6:
+                JOptionPane.showMessageDialog(null,"Busque la base de carga y entre "
+                        + "en modo de carga");
+                carga = 100;
                 break;
             default:
         }
+        
+        repeticion =JOptionPane.showInputDialog(null,"Desea repetir el programa:\n si\n no");
+        
+        }while (repeticion.equalsIgnoreCase("si"));
+       
 
     }
 
