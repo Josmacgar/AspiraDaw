@@ -17,18 +17,28 @@ public class AspiraDaw {
         //Constantes con el usuario y contraseña
         final String USUARIO = "usuario";
         final String CONTRASEÑA = "usuario";
+        final double gastoBateria=1.5;
         //Variables para que el usuario se identifique
         String NombreUsuario;
         String ContraseniaUsuario;
         //Variables para las dependencias
-        int cocina;
-        int salon;
-        int baño;
-        int dormitorio1;
-        int dormitorio2;
+        int cocina=0;
+        int salon=0;
+        int banio=0;
+        int dormitorio1=0;
+        int dormitorio2=0;
         //Variable de carga
-        int carga=0;
-        String repeticion;
+        double carga=0;
+        String repeticion="";
+        String habitacion;
+        
+        //Variables para limpieza de dependencias
+        double gastoCocina=0;
+        double gastoSalon=0;
+        double gastoBanio=0;
+        double gastoDormitorio1=0;
+        double gastoDormitorio2=0;
+        String [] objeto = {"SI", "NO"};
         
         // do while para que se repita en caso de que no sean las credenciales
        /* do {
@@ -68,11 +78,11 @@ public class AspiraDaw {
                   do {
                 String metrosBaño=JOptionPane.showInputDialog(null, "Metros cuadrados "
                         + "del baño");
-                baño = Integer.parseInt(metrosBaño);
-                 if (baño<1 || baño>100){
+                banio = Integer.parseInt(metrosBaño);
+                 if (banio<1 || banio>100){
                     JOptionPane.showMessageDialog(null, "Introduzca un numero entre 1 y 100 ");
                 }
-                } while (baño<1 || baño>100);
+                } while (banio<1 || banio>100);
                    do {
                 String metrosDormitorio1=JOptionPane.showInputDialog(null, "Metros cuadrados "
                         + "del primer dormitorio");
@@ -95,7 +105,7 @@ public class AspiraDaw {
                 do {
                 String nivelCarga=JOptionPane.showInputDialog(null, "Introduzca un"
                         + " numero entre 0 y 100 ");
-                carga = Integer.parseInt(nivelCarga);
+                carga = Double.parseDouble(nivelCarga);
                  if (carga<0 || carga>100){
                     JOptionPane.showMessageDialog(null, "Introduzca un numero entre 0 y 100 ");
                 }
@@ -108,8 +118,124 @@ public class AspiraDaw {
                     int modo = Integer.parseInt(modoAspiracion);
                 switch (modo){
                     case 1:
-                        
+                      // en otro caso hacer algo que redondee al mas pequeño
+                       /* if (cocina<carga){
+                           carga = carga - cocina;
+                        } else if (cocina==carga){
+                            JOptionPane.showMessageDialog(null, "se ha podido limpiar la cocina ");
+                            break;
+                       } else if (cocina>carga){
+                           JOptionPane.showMessageDialog(null, "no hay suficiente bateria");
+                       }
+                       
+                        else if (salon*1.25<carga){
+                           carga = carga - salon*1.25;
+                           JOptionPane.showMessageDialog(null, "prueba superada");
+                       } else if (salon*1.25==carga || salon*1.25>carga){
+                           JOptionPane.showMessageDialog(null, "se ha podido limpiar"
+                                   + " la cocina y el salon");
+                          break;
+                       } */
+                      /* else if (banio*1.25<=carga){
+                            carga = carga - banio*1.25;
+                       } else if (banio*1.25==carga || banio*1.25>carga){
+                            System.out.println("se ha podido limpiar la cocina, el salon"
+                                   + "y el baño");
+                            break;
+                       }
+                       else if (dormitorio1*1.25<=carga){
+                           carga = carga - dormitorio1*1.25;
+                       } else if (dormitorio1*1.25==carga || dormitorio1*1.25>carga){
+                           System.out.println("se ha podido limpiar la cocina, el salon,"
+                                   + " el baño y el dormitorio 1");
+                           break;
+                       }
+                       else if (dormitorio2*1.25<=carga){
+                           carga = carga - dormitorio2*1.25;
+                       } else if (dormitorio2*1.25==carga || dormitorio2*1.25>carga){
+                           System.out.println("se ha podido limpiar toda la vivienda");
+                           break;
+                       }*/
+                            
                     case 2:
+                       // do {
+                            habitacion=JOptionPane.showInputDialog(null,"¿Qué habitacion desea "
+                                + "limpiar?\n cocina\n salon\n baño\n dormitorio1\n "
+                                + "dormitorio2");
+                        gastoCocina = 1.5*cocina;
+                        gastoSalon = 1.5*salon;
+                        gastoBanio = 1.5*banio;
+                        gastoDormitorio1 = 1.5*dormitorio1;
+                        gastoDormitorio2 = 1.5*dormitorio2;
+                        switch (habitacion) {
+                            case "cocina":
+                                 if (gastoCocina<carga && carga<=3){
+                                     JOptionPane.showMessageDialog(null,"Bateria insuficiente, "
+                                             + "el robot se dirige a la base de carga");
+                                } else if (gastoCocina<carga){
+                                   JOptionPane.showMessageDialog(null,"Se ha limpiado"
+                                           + "la cocina"); 
+                                   carga = carga-gastoCocina;
+                                }else if (gastoCocina>carga) {
+                                   JOptionPane.showMessageDialog(null,"No hay suficiente "
+                                           + "bateria");  
+                                }
+                                 break;
+                            case "salon":
+                               if (gastoSalon<carga && carga<=3){
+                                     JOptionPane.showMessageDialog(null,"Bateria insuficiente, "
+                                             + "el robot se dirige a la base de carga");
+                                } else if (gastoSalon<carga){
+                                   JOptionPane.showMessageDialog(null,"Se ha limpiado"
+                                           + "el salon"); 
+                                   carga = carga-gastoSalon;
+                                }else if (gastoSalon>carga) {
+                                   JOptionPane.showMessageDialog(null,"No hay suficiente "
+                                           + "bateria");  
+                                }
+                               break;
+                            case "baño":
+                              if (gastoBanio<carga && carga<=3){
+                                     JOptionPane.showMessageDialog(null,"Bateria insuficiente, "
+                                             + "el robot se dirige a la base de carga");
+                                } else if (gastoBanio<carga){
+                                   JOptionPane.showMessageDialog(null,"Se ha limpiado"
+                                           + "el baño"); 
+                                   carga = carga-gastoBanio;
+                                }else if (gastoBanio>carga) {
+                                   JOptionPane.showMessageDialog(null,"No hay suficiente "
+                                           + "bateria");  
+                                }
+                              break;
+                            case "dormitorio1":
+                                if (gastoDormitorio1<carga && carga<=3){
+                                     JOptionPane.showMessageDialog(null,"Bateria insuficiente, "
+                                             + "el robot se dirige a la base de carga");
+                                } else if (gastoDormitorio1<carga){
+                                   JOptionPane.showMessageDialog(null,"Se ha limpiado"
+                                           + "el dormitorio 1"); 
+                                   carga = carga-gastoDormitorio1;
+                                }else if (gastoDormitorio1>carga) {
+                                   JOptionPane.showMessageDialog(null,"No hay suficiente "
+                                           + "bateria");  
+                                }
+                                break;
+                            case "dormitorio2":
+                               if (gastoDormitorio2<carga && carga<=3){
+                                     JOptionPane.showMessageDialog(null,"Bateria insuficiente, "
+                                             + "el robot se dirige a la base de carga");
+                                } else if (gastoDormitorio2<carga){
+                                   JOptionPane.showMessageDialog(null,"Se ha limpiado"
+                                           + "el dormitorio 2"); 
+                                   carga = carga-gastoDormitorio2;
+                                }else if (gastoDormitorio2>carga) {
+                                   JOptionPane.showMessageDialog(null,"No hay suficiente "
+                                           + "bateria");  
+                                }
+                                break; 
+                        }
+                        //}while ();
+                         
                 }
                 break;
             case 4:
@@ -123,10 +249,10 @@ public class AspiraDaw {
                 carga = 100;
                 break;
             default:
+                System.exit(0);
         }
-        
+       
         repeticion =JOptionPane.showInputDialog(null,"Desea repetir el programa:\n si\n no");
-        
         }while (repeticion.equalsIgnoreCase("si"));
        
 
