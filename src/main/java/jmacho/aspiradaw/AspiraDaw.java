@@ -6,7 +6,8 @@
 package jmacho.aspiradaw;
 
 import javax.swing.JOptionPane;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -22,8 +23,8 @@ public class AspiraDaw {
         final double gastoBateria = 1.5;
         int menu;
         //Variables para que el usuario se identifique
-        String NombreUsuario;
-        String ContraseniaUsuario;
+        String nombreUsuario;
+        String contraseniaUsuario;
         //Variables para las dependencias
         int cocina = 0;
         int salon = 0;
@@ -44,10 +45,14 @@ public class AspiraDaw {
         double gastoDormitorio2 = 0;
 
         // do while para que se repita en caso de que no sean las credenciales
-        /* do {
-            NombreUsuario = JOptionPane.showInputDialog(null, "Nombre de usuario");
-            ContraseniaUsuario = JOptionPane.showInputDialog(null, "Contraseña");
-        } while (!NombreUsuario.equals(USUARIO) || !ContraseniaUsuario.equals(CONTRASEÑA));*/
+        /*do {
+            nombreUsuario = JOptionPane.showInputDialog(null, "Nombre de usuario");
+            contraseniaUsuario = JOptionPane.showInputDialog(null, "Contraseña");
+            if (!nombreUsuario.equals(USUARIO) || !contraseniaUsuario.equals(CONTRASEÑA)){
+              JOptionPane.showMessageDialog(null, "Datos erróneos");
+            }
+        } while (!nombreUsuario.equals(USUARIO) || !contraseniaUsuario.equals(CONTRASEÑA));
+         JOptionPane.showMessageDialog(null, "Bienvenido "+USUARIO);*/
         do {
 
             //creamos el menu y lo pasamos de String a int
@@ -121,230 +126,289 @@ public class AspiraDaw {
                     int modo = Integer.parseInt(modoAspiracion);
                     switch (modo) {
                         case 1:
-                        // en otro caso hacer algo que redondee al mas pequeño
-                        /* if (cocina<carga){
-                           carga = carga - cocina;
-                        } else if (cocina==carga){
-                            JOptionPane.showMessageDialog(null, "se ha podido limpiar la cocina ");
-                            break;
-                       } else if (cocina>carga){
-                           JOptionPane.showMessageDialog(null, "no hay suficiente bateria");
-                       }
+                            carga = carga;
+                            gastoCocina = 1.5 * cocina;
+                            gastoSalon = 1.5 * salon;
+                            gastoBanio = 1.5 * banio;
+                            gastoDormitorio1 = 1.5 * dormitorio1;
+                            gastoDormitorio2 = 1.5 * dormitorio2;
+                            // en otro caso hacer algo que redondee al mas pequeño
+                            if ( carga <= 3) {
+                                JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                        + "el robot debe dirigirse a la base de carga");
+                                break;
+                            } else if (gastoCocina < carga) {
+                                JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                        + "la cocina");
+                                carga = carga - gastoCocina;
+                                lugar = "cocina";
+                            } else if (gastoCocina > carga) {
+                                JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                        + "bateria");
+                            } else if (carga <= 3) {
+                                JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                        + "el robot debe dirigirse a la base de carga");
+                                break;
+                            } else if (gastoSalon < carga) {
+                                JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                        + "el salon");
+                                carga = carga - gastoSalon;
+                                lugar = "salon";
+                            } else if (gastoSalon > carga) {
+                                JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                        + "bateria");
+                                break;
+                            }
+                            
+                        
+                            if ( carga <= 3) {
+                                JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                        + "el robot debe dirigirse a la base de carga");
+                                break;
+                            } else if (gastoBanio < carga) {
+                                JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                        + "el baño");
+                                carga = carga - gastoBanio;
+                                lugar = "baño";
+                            } else if (gastoBanio > carga) {
+                                JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                        + "bateria");
+                                 break;
+                            }
+                           
                        
-                        else if (salon*1.25<carga){
-                           carga = carga - salon*1.25;
-                           JOptionPane.showMessageDialog(null, "prueba superada");
-                       } else if (salon*1.25==carga || salon*1.25>carga){
-                           JOptionPane.showMessageDialog(null, "se ha podido limpiar"
-                                   + " la cocina y el salon");
-                          break;
-                       } */
- /* else if (banio*1.25<=carga){
-                            carga = carga - banio*1.25;
-                       } else if (banio*1.25==carga || banio*1.25>carga){
-                            System.out.println("se ha podido limpiar la cocina, el salon"
-                                   + "y el baño");
+                            if ( carga <= 3) {
+                                JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                        + "el robot debe dirigirse a la base de carga");
+                                break;
+                            } else if (gastoDormitorio1 < carga) {
+                                JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                        + "el dormitorio 1");
+                                carga = carga - gastoDormitorio1;
+                                lugar = "dormitorio 1";
+                            } else if (gastoDormitorio1 > carga) {
+                                JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                        + "bateria");
+                                break;
+                            }
+                            
+                        
+                            if (carga <= 3) {
+                                JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                        + "el robot debe dirigirse a la base de carga");
+                                break;
+                            } else if (gastoDormitorio2 < carga) {
+                                JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                        + "el dormitorio 2");
+                                carga = carga - gastoDormitorio2;
+                                lugar = "dormitorio 2";
+                            } else if (gastoDormitorio2 > carga) {
+                                JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                        + "bateria");
+                                }
                             break;
-                       }
-                       else if (dormitorio1*1.25<=carga){
-                           carga = carga - dormitorio1*1.25;
-                       } else if (dormitorio1*1.25==carga || dormitorio1*1.25>carga){
-                           System.out.println("se ha podido limpiar la cocina, el salon,"
-                                   + " el baño y el dormitorio 1");
-                           break;
-                       }
-                       else if (dormitorio2*1.25<=carga){
-                           carga = carga - dormitorio2*1.25;
-                       } else if (dormitorio2*1.25==carga || dormitorio2*1.25>carga){
-                           System.out.println("se ha podido limpiar toda la vivienda");
-                           break;
-                       }*/
 
                         case 2:
-                          //do while para repetir las dependencias hasta que el usuario
-                          //diga salir
-                           do {
-                               carga = carga;
-                               habitacion = JOptionPane.showInputDialog(null, "¿Qué habitacion desea "
-                                       + "limpiar?\n cocina\n salon\n baño\n dormitorio1\n "
-                                       + "dormitorio2\n salir");
-                               gastoCocina = 1.5 * cocina;
-                               gastoSalon = 1.5 * salon;
-                               gastoBanio = 1.5 * banio;
-                               gastoDormitorio1 = 1.5 * dormitorio1;
-                               gastoDormitorio2 = 1.5 * dormitorio2;
-                               //swith en el que dentro tienen un if para realize una operacion
-                              //dependiendo del nivel de carga y del nivel que va a gastar
-                               switch (habitacion) {
-                                   case "cocina":
-                                       if (gastoCocina < carga && carga <= 3) {
-                                           JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
-                                                   + "el robot debe dirigirse a la base de carga");
-                                       } else if (gastoCocina < carga) {
-                                           JOptionPane.showMessageDialog(null, "Se ha limpiado "
-                                                   + "la cocina");
-                                           carga = carga - gastoCocina;
-                                           lugar = "cocina";
-                                       } else if (gastoCocina > carga) {
-                                           JOptionPane.showMessageDialog(null, "No hay suficiente "
-                                                   + "bateria");
-                                       }
-                                       break;
-                                   case "salon":
-                                       if (gastoSalon < carga && carga <= 3) {
-                                           JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
-                                                   + "el robot debe dirigirse a la base de carga");
-                                       } else if (gastoSalon < carga) {
-                                           JOptionPane.showMessageDialog(null, "Se ha limpiado "
-                                                   + "el salon");
-                                           carga = carga - gastoSalon;
-                                           lugar = "salon";
-                                       } else if (gastoSalon > carga) {
-                                           JOptionPane.showMessageDialog(null, "No hay suficiente "
-                                                   + "bateria");
-                                       }
-                                       break;
-                                   case "baño":
-                                       if (gastoBanio < carga && carga <= 3) {
-                                           JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
-                                                   + "el robot debe dirigirse a la base de carga");
-                                       } else if (gastoBanio < carga) {
-                                           JOptionPane.showMessageDialog(null, "Se ha limpiado "
-                                                   + "el baño");
-                                           carga = carga - gastoBanio;
-                                           lugar = "baño";
-                                       } else if (gastoBanio > carga) {
-                                           JOptionPane.showMessageDialog(null, "No hay suficiente "
-                                                   + "bateria");
-                                       }
-                                       break;
-                                   case "dormitorio1":
-                                       if (gastoDormitorio1 < carga && carga <= 3) {
-                                           JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
-                                                   + "el robot debe dirigirse a la base de carga");
-                                       } else if (gastoDormitorio1 < carga) {
-                                           JOptionPane.showMessageDialog(null, "Se ha limpiado "
-                                                   + "el dormitorio 1");
-                                           carga = carga - gastoDormitorio1;
-                                           lugar = "dormitorio 1";
-                                       } else if (gastoDormitorio1 > carga) {
-                                           JOptionPane.showMessageDialog(null, "No hay suficiente "
-                                                   + "bateria");
-                                       }
-                                       break;
-                                   case "dormitorio2":
-                                       if (gastoDormitorio2 < carga && carga <= 3) {
-                                           JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
-                                                   + "el robot debe dirigirse a la base de carga");
-                                       } else if (gastoDormitorio2 < carga) {
-                                           JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                            //do while para repetir las dependencias hasta que el usuario
+                            //diga salir
+                            do {
+                                carga = carga;
+                                habitacion = JOptionPane.showInputDialog(null, "¿Qué habitacion desea "
+                                        + "limpiar?\n cocina\n salon\n baño\n dormitorio1\n "
+                                        + "dormitorio2\n salir");
+                                gastoCocina = 1.5 * cocina;
+                                gastoSalon = 1.5 * salon;
+                                gastoBanio = 1.5 * banio;
+                                gastoDormitorio1 = 1.5 * dormitorio1;
+                                gastoDormitorio2 = 1.5 * dormitorio2;
+                                //swith en el que dentro tienen un if para realize una operacion
+                                //dependiendo del nivel de carga y del nivel que va a gastar
+                                switch (habitacion) {
+                                    case "cocina":
+                                        if ( carga <= 3) {
+                                            JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                                    + "el robot debe dirigirse a la base de carga");
+                                        } else if (gastoCocina < carga) {
+                                            JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                                    + "la cocina");
+                                            carga = carga - gastoCocina;
+                                            lugar = "cocina";
+                                        } else if (gastoCocina > carga) {
+                                            JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                                    + "bateria");
+                                        }
+                                        break;
+                                    case "salon":
+                                        if (gastoSalon < carga && carga <= 3) {
+                                            JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                                    + "el robot debe dirigirse a la base de carga");
+                                        } else if (gastoSalon < carga) {
+                                            JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                                    + "el salon");
+                                            carga = carga - gastoSalon;
+                                            lugar = "salon";
+                                        } else if (gastoSalon > carga) {
+                                            JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                                    + "bateria");
+                                        }
+                                        break;
+                                    case "baño":
+                                        if (carga <= 3) {
+                                            JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                                    + "el robot debe dirigirse a la base de carga");
+                                            break;
+                                        } else if (gastoBanio < carga) {
+                                            JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                                    + "el baño");
+                                            carga = carga - gastoBanio;
+                                            lugar = "baño";
+                                        } else if (gastoBanio > carga) {
+                                            JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                                    + "bateria");
+                                        }
+                                        break;
+                                    case "dormitorio1":
+                                        if ( carga <= 3) {
+                                            JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                                    + "el robot debe dirigirse a la base de carga");
+                                            break;
+                                        } else if (gastoDormitorio1 < carga) {
+                                            JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                                    + "el dormitorio 1");
+                                            carga = carga - gastoDormitorio1;
+                                            lugar = "dormitorio 1";
+                                        } else if (gastoDormitorio1 > carga) {
+                                            JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                                    + "bateria");
+                                        }
+                                        break;
+                                    case "dormitorio2":
+                                        if ( carga <= 3) {
+                                            JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                                    + "el robot debe dirigirse a la base de carga");
+                                            break;
+                                        } else if (gastoDormitorio2 < carga) {
+                                            JOptionPane.showMessageDialog(null, "Se ha limpiado "
                                                     + "el dormitorio 2");
-                                           carga = carga - gastoDormitorio2;
-                                           lugar = "dormitorio 2";
-                                       } else if (gastoDormitorio2 > carga) {
-                                           JOptionPane.showMessageDialog(null, "No hay suficiente "
-                                                   + "bateria");
-                                       }
-                                       break;
-                               }
-                           } while (!habitacion.equalsIgnoreCase("salir"));
+                                            carga = carga - gastoDormitorio2;
+                                            lugar = "dormitorio 2";
+                                        } else if (gastoDormitorio2 > carga) {
+                                            JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                                    + "bateria");
+                                        }
+                                        break;
+                                }
+                            } while (!habitacion.equalsIgnoreCase("salir"));
 
-                   }
+                    }
                     break;
                 case 4:
-                 //do while para repetir las dependencias hasta que el usuario
-                          //diga salir
-                           do {
-                               carga = carga;
-                               habitacion = JOptionPane.showInputDialog(null, "¿Qué habitacion desea "
-                                       + "Aspirar y Fregar?\n cocina\n salon\n baño\n dormitorio1\n "
-                                       + "dormitorio2\n salir");
-                               gastoCocina = 2.25 * cocina;
-                               gastoSalon = 2.25 * salon;
-                               gastoBanio = 2.25 * banio;
-                               gastoDormitorio1 = 2.25 * dormitorio1;
-                               gastoDormitorio2 = 2.252 * dormitorio2;
-                               //swith en el que dentro tienen un if para realize una operacion
-                              //dependiendo del nivel de carga y del nivel que va a gastar
-                               switch (habitacion) {
-                                   case "cocina":
-                                       if (gastoCocina < carga && carga <= 3) {
-                                           JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
-                                                   + "el robot debe dirigirse a la base de carga");
-                                       } else if (gastoCocina < carga) {
-                                           JOptionPane.showMessageDialog(null, "Se ha limpiado "
-                                                   + "la cocina");
-                                           carga = carga - gastoCocina;
-                                           lugar = "cocina";
-                                       } else if (gastoCocina > carga) {
-                                           JOptionPane.showMessageDialog(null, "No hay suficiente "
-                                                   + "bateria");
-                                       }
-                                       break;
-                                   case "salon":
-                                       if (gastoSalon < carga && carga <= 3) {
-                                           JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
-                                                   + "el robot debe dirigirse a la base de carga");
-                                       } else if (gastoSalon < carga) {
-                                           JOptionPane.showMessageDialog(null, "Se ha limpiado "
-                                                   + "el salon");
-                                           carga = carga - gastoSalon;
-                                           lugar = "salon";
-                                       } else if (gastoSalon > carga) {
-                                           JOptionPane.showMessageDialog(null, "No hay suficiente "
-                                                   + "bateria");
-                                       }
-                                       break;
-                                   case "baño":
-                                       if (gastoBanio < carga && carga <= 3) {
-                                           JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
-                                                   + "el robot debe dirigirse a la base de carga");
-                                       } else if (gastoBanio < carga) {
-                                           JOptionPane.showMessageDialog(null, "Se ha limpiado "
-                                                   + "el baño");
-                                           carga = carga - gastoBanio;
-                                           lugar = "baño";
-                                       } else if (gastoBanio > carga) {
-                                           JOptionPane.showMessageDialog(null, "No hay suficiente "
-                                                   + "bateria");
-                                       }
-                                       break;
-                                   case "dormitorio1":
-                                       if (gastoDormitorio1 < carga && carga <= 3) {
-                                           JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
-                                                   + "el robot debe dirigirse a la base de carga");
-                                       } else if (gastoDormitorio1 < carga) {
-                                           JOptionPane.showMessageDialog(null, "Se ha limpiado "
-                                                   + "el dormitorio 1");
-                                           carga = carga - gastoDormitorio1;
-                                           lugar = "dormitorio 1";
-                                       } else if (gastoDormitorio1 > carga) {
-                                           JOptionPane.showMessageDialog(null, "No hay suficiente "
-                                                   + "bateria");
-                                       }
-                                       break;
-                                   case "dormitorio2":
-                                       if (gastoDormitorio2 < carga && carga <= 3) {
-                                           JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
-                                                   + "el robot debe dirigirse a la base de carga");
-                                       } else if (gastoDormitorio2 < carga) {
-                                           JOptionPane.showMessageDialog(null, "Se ha limpiado "
-                                                    + "el dormitorio 2");
-                                           carga = carga - gastoDormitorio2;
-                                           lugar = "dormitorio 2";
-                                       } else if (gastoDormitorio2 > carga) {
-                                           JOptionPane.showMessageDialog(null, "No hay suficiente "
-                                                   + "bateria");
-                                       }
-                                       break;
-                               }
-                           } while (!habitacion.equalsIgnoreCase("salir"));
+                    //do while para repetir las dependencias hasta que el usuario
+                    //diga salir
+                    do {
+                        carga = carga;
+                        habitacion = JOptionPane.showInputDialog(null, "¿Qué habitacion desea "
+                                + "Aspirar y Fregar?\n cocina\n salon\n baño\n dormitorio1\n "
+                                + "dormitorio2\n salir");
+                        gastoCocina = 2.25 * cocina;
+                        gastoSalon = 2.25 * salon;
+                        gastoBanio = 2.25 * banio;
+                        gastoDormitorio1 = 2.25 * dormitorio1;
+                        gastoDormitorio2 = 2.252 * dormitorio2;
+                        //swith en el que dentro tienen un if para realize una operacion
+                        //dependiendo del nivel de carga y del nivel que va a gastar
+                        switch (habitacion) {
+                            case "cocina":
+                                if ( carga <= 3) {
+                                    JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                            + "el robot debe dirigirse a la base de carga");
+                                    break;
+                                } else if (gastoCocina < carga) {
+                                    JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                            + "la cocina");
+                                    carga = carga - gastoCocina;
+                                    lugar = "cocina";
+                                } else if (gastoCocina > carga) {
+                                    JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                            + "bateria");
+                                }
+                                break;
+                            case "salon":
+                                if ( carga <= 3) {
+                                    JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                            + "el robot debe dirigirse a la base de carga");
+                                    break;
+                                } else if (gastoSalon < carga) {
+                                    JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                            + "el salon");
+                                    carga = carga - gastoSalon;
+                                    lugar = "salon";
+                                } else if (gastoSalon > carga) {
+                                    JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                            + "bateria");
+                                }
+                                break;
+                            case "baño":
+                                if ( carga <= 3) {
+                                    JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                            + "el robot debe dirigirse a la base de carga");
+                                    break;
+                                } else if (gastoBanio < carga) {
+                                    JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                            + "el baño");
+                                    carga = carga - gastoBanio;
+                                    lugar = "baño";
+                                } else if (gastoBanio > carga) {
+                                    JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                            + "bateria");
+                                }
+                                break;
+                            case "dormitorio1":
+                                if ( carga <= 3) {
+                                    JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                            + "el robot debe dirigirse a la base de carga");
+                                    break;
+                                } else if (gastoDormitorio1 < carga) {
+                                    JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                            + "el dormitorio 1");
+                                    carga = carga - gastoDormitorio1;
+                                    lugar = "dormitorio 1";
+                                } else if (gastoDormitorio1 > carga) {
+                                    JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                            + "bateria");
+                                }
+                                break;
+                            case "dormitorio2":
+                                if ( carga <= 3) {
+                                    JOptionPane.showMessageDialog(null, "Bateria insuficiente, "
+                                            + "el robot debe dirigirse a la base de carga");
+                                    break;
+                                } else if (gastoDormitorio2 < carga) {
+                                    JOptionPane.showMessageDialog(null, "Se ha limpiado "
+                                            + "el dormitorio 2");
+                                    carga = carga - gastoDormitorio2;
+                                    lugar = "dormitorio 2";
+                                } else if (gastoDormitorio2 > carga) {
+                                    JOptionPane.showMessageDialog(null, "No hay suficiente "
+                                            + "bateria");
+                                }
+                                break;
+                        }
+                    } while (!habitacion.equalsIgnoreCase("salir"));
                     break;
                 case 5:
-                    JOptionPane.showMessageDialog(null, "El nivel de carga es: " + carga + "%\n"
-                            + "El robot se encuentra la habitación ");
-                    JOptionPane.showMessageDialog(null, "El robot se encuentra en: " + lugar + "\n" + carga);
+                    JOptionPane.showMessageDialog(null, "El nivel de carga es: " + carga);
 
+                    JOptionPane.showMessageDialog(null, "El robot se encuentra en la dependencia: "
+                            + lugar);
+
+                    JOptionPane.showMessageDialog(null, "Las dependencias de la casa son:\n"
+                            + "Cocina: con " + cocina + " m2\n" + "Salon: con " + salon + " m2\n"
+                            + "Baño: con " + banio + " m2\n" + "Dormitorio1: con " + dormitorio1 + " m2\n"
+                            + "Dormitorio2: con " + dormitorio2 + " m2\n");
+                    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                    Date fecha = new Date();
+                    JOptionPane.showMessageDialog(null, formato.format(fecha));
                     break;
                 case 6:
                     JOptionPane.showMessageDialog(null, "Busque la base de carga y entre "
